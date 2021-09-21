@@ -18,11 +18,11 @@ const servidores = {
 }
 //console & ligar bot// #######################################################################################################################
 
-client.on('ready', () => {
-    console.log('Bot foi iniciado'); 
+client.on('ready', async () => {
+    console.log('Bot foi iniciado');
 
     //client.user.setActivity('discord.gg/fortal-city'),
-    client.user.setActivity('Fortal City 🔞')
+    await client.user.setActivity('Youtube', { type: 'LISTENING' })
   });
 
   //############################################################################################################################################
@@ -52,7 +52,7 @@ client.on('message', async (msg) => {
 
       await message.react('📩')
   }
-  
+
   //filtros
 
   if (!msg.guild) return;
@@ -63,7 +63,7 @@ client.on('message', async (msg) => {
 
   const args = msg.content.slice(config.prefix.lenght).trim().split(/ +/g);
   const comando = args.shift().toLowerCase();
-  
+
   //comandos
 
   //whitelist
@@ -71,7 +71,7 @@ client.on('message', async (msg) => {
   if(msg.content.startsWith(prefixo + 'whitelist')){
 
     contadorDeWhitelist += 1
-    
+
     await msg.guild.channels.create(`whitelist-${contadorDeWhitelist}`, {
         type: 'text',
         permissionOverwrites: [
@@ -118,6 +118,7 @@ client.on('message', async (msg) => {
     //comandos musicas #########################################################################################################################
 
  if(msg.content.startsWith(prefixo + 'play')){
+
     servidores.server.connection = await msg.member.voice.channel.join();
     let oQueTocar = msg.content.slice(6);
     if(ytdl.validateURL(oQueTocar)){
